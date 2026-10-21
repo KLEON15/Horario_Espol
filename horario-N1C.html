@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Horario N1C · ESPOL</title>
+<style>
+  :root{
+    --bg:#f6f7f9; --card:#fff; --ink:#14181f; --mute:#667085; --line:#e4e7ec;
+    --acc:#1a56db; --accink:#fff; --ok:#067647; --okbg:#dcfae6; --warn:#b42318; --warnbg:#fee4e2;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{ --bg:#0f1115; --card:#181b21; --ink:#f2f4f7; --mute:#98a2b3; --line:#2a2f38;
+      --acc:#5b8def; --accink:#0b1220; --ok:#75e0a7; --okbg:#0b2e1d; --warn:#fda29b; --warnbg:#3a1512; }
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--bg);color:var(--ink);font:16px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    min-height:100vh;padding:0 16px 40px;max-width:560px;margin:0 auto}
+  header{padding:20px 0 8px}
+  h1{font-size:20px;margin:0}
+  .sub{color:var(--mute);font-size:13px;margin-top:2px}
+  .nav{display:flex;gap:8px;align-items:center;margin:12px 0}
+  .nav button{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;
+    padding:10px 14px;font-size:15px;cursor:pointer}
+  .nav .hoy{margin-left:auto;background:var(--acc);color:var(--accink);border-color:var(--acc);font-weight:600}
+  .week{display:flex;gap:6px;margin-bottom:14px}
+  .week button{flex:1;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;
+    padding:8px 0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:12px}
+  .week button b{font-size:17px}
+  .week button.sel{background:var(--acc);color:var(--accink);border-color:var(--acc)}
+  .week button.today:not(.sel){border-color:var(--acc)}
+  .week button.off{opacity:.45}
+  .dayhead{font-size:17px;font-weight:700;margin:4px 0 10px;text-transform:capitalize}
+  .dayhead small{display:block;font-weight:400;color:var(--mute);font-size:13px;text-transform:none}
+  .card{background:var(--card);border:1px solid var(--line);border-left-width:6px;border-radius:14px;padding:14px;margin-bottom:10px}
+  .time{font-size:13px;color:var(--mute);display:flex;justify-content:space-between;align-items:center}
+  .badge{font-size:11px;font-weight:700;padding:3px 8px;border-radius:999px;background:var(--okbg);color:var(--ok)}
+  .badge.next{background:var(--line);color:var(--mute)}
+  .subj{font-size:19px;font-weight:700;margin:4px 0 2px}
+  .prof{font-size:14px;color:var(--mute);min-height:1px}
+  .join{display:block;text-align:center;margin-top:12px;padding:13px;border-radius:12px;background:var(--acc);
+    color:var(--accink);text-decoration:none;font-weight:700;font-size:16px}
+  .nolink{margin-top:12px;font-size:13px;color:var(--mute)}
+  .empty{padding:28px 16px;text-align:center;border-radius:14px;border:1px dashed var(--line);color:var(--mute)}
+  .empty.fer{background:var(--warnbg);color:var(--warn);border-color:transparent;font-weight:700}
+  footer{margin-top:20px;color:var(--mute);font-size:12px;text-align:center}
+</style>
+</head>
+<body>
+<header>
+  <h1>Horario N1C · Licencia Tipo C</h1>
+  <div class="sub">ESPOL · XXII Promoción · Nocturno · hora de Guayaquil</div>
+</header>
+
+<div class="nav">
+  <button id="prev" aria-label="Semana anterior">‹ Semana</button>
+  <button id="next" aria-label="Semana siguiente">Semana ›</button>
+  <button id="hoy" class="hoy">Hoy</button>
+</div>
+<div class="week" id="week"></div>
+<div id="day"></div>
+<noscript><div style="font-family:sans-serif;padding:4px 0"><p style="background:#fff3cd;color:#664d03;padding:10px;border-radius:8px;font-size:14px"><b>Vista simple.</b> Para la versión interactiva (día de hoy y botones), abre este archivo en Chrome o Safari.</p><h3 style="margin:18px 0 6px">Semana 1</h3><p style="margin:6px 0 2px"><b>Lunes 19 de octubre</b></p><p style="margin:0 0 4px">18:30–20:00 · Leyes y Reglamento · <a href="https://meet.google.com/qik-mgri-jvf">Unirse (Meet)</a></p><p style="margin:0 0 4px">20:00–21:30 · Mecánica Básica</p><p style="margin:6px 0 2px"><b>Martes 20 de octubre</b></p><p style="margin:0 0 4px">18:30–20:00 · Atención al Cliente · <a href="https://meet.google.com/wzn-ufrz-qeu">Unirse (Meet)</a></p><p style="margin:0 0 4px">20:00–21:30 · Teoría de la Conducción · <a href="https://meet.google.com/utq-snkp-ght">Unirse (Meet)</a></p><p style="margin:6px 0 2px"><b>Miércoles 21 de octubre</b></p><p style="margin:0 0 4px">18:30–20:00 · Leyes y Reglamento · <a href="https://meet.google.com/qik-mgri-jvf">Unirse (Meet)</a></p><p style="margin:0 0 4px">20:00–21:30 · Computación · <a href="https://meet.google.com/myc-qzma-guc">Unirse (Meet)</a></p><p style="margin:6px 0 2px"><b>Jueves 22 de octubre</b></p><p style="margin:0 0 4px">18:30–20:00 · Atención al Cliente · <a href="https://meet.google.com/wzn-ufrz-qeu">Unirse (Meet)</a></p><p style="margin:0 0 4px">20:00–21:30 · Teoría de la Conducción · <a href="https://meet.google.com/utq-snkp-ght">Unirse (Meet)</a></p><p style="margin:6px 0 2px"><b>Viernes 23 de octubre</b></p><p style="margin:0 0 4px">18:30–20:00 · Mecánica Básica</p><p style="margin:0 0 4px">20:00–21:30 · Computación · <a href="https://meet.google.com/myc-qzma-guc">Unirse (Meet)</a></p><h3 style="margin:18px 0 6px">Semana 2</h3><p style="margin:6px 0 2px"><b>Lunes 26 de octubre</b></p><p style="margin:0 0 4px">18:30–20:00 · Leyes y Reglamento · <a href="https://meet.google.com/qik-mgri-jvf">Unirse (Meet)</a></p><p style="margin:0 0 4px">20:00–21:30 · Mecánica Básica</p><p style="margin:6px 0 2px"><b>Martes 27 de octubre</b></p><p style="margin:0 0 4px">18:30–20:00 · Atención al Cliente · <a href="https://meet.google.com/wzn-ufrz-qeu">Unirse (Meet)</a></p><p style="margin:0 0 4px">20:00–21:30 · Teoría de la Conducción · <a href="https://meet.google.com/utq-snkp-ght">Unirse (Meet)</a></p><p style="margin:6px 0 2px"><b>Miércoles 28 de octubre</b></p><p style="margin:0 0 4px">18:30–20:00 · Leyes y Reglamento · <a href="https://meet.google.com/qik-mgri-jvf">Unirse (Meet)</a></p><p style="margin:0 0 4px">20:00–21:30 · Computación · <a href="https://meet.google.com/myc-qzma-guc">Unirse (Meet)</a></p><p style="margin:6px 0 2px"><b>Jueves 29 de octubre</b></p><p style="margin:0 0 4px">18:30–20:00 · Atención al Cliente · <a href="https://meet.google.com/wzn-ufrz-qeu">Unirse (Meet)</a></p><p style="margin:0 0 4px">20:00–21:30 · Teoría de la Conducción · <a href="https://meet.google.com/utq-snkp-ght">Unirse (Meet)</a></p><p style="margin:6px 0 2px"><b>Viernes 30 de octubre</b></p><p style="margin:0 0 4px">18:30–20:00 · Mecánica Básica</p><p style="margin:0 0 4px">20:00–21:30 · Computación · <a href="https://meet.google.com/myc-qzma-guc">Unirse (Meet)</a></p><h3 style="margin:18px 0 6px">Semana 3</h3><p style="margin:6px 0 2px"><b>Lunes 2 de noviembre</b></p><p style="margin:0 0 6px;color:#b42318">Feriado</p><p style="margin:6px 0 2px"><b>Martes 3 de noviembre</b></p><p style="margin:0 0 6px;color:#b42318">Feriado</p><p style="margin:6px 0 2px"><b>Miércoles 4 de noviembre</b></p><p style="margin:0 0 4px">18:30–20:00 · Leyes y Reglamento · <a href="https://meet.google.com/qik-mgri-jvf">Unirse (Meet)</a></p><p style="margin:0 0 4px">20:00–21:30 · Computación · <a href="https://meet.google.com/myc-qzma-guc">Unirse (Meet)</a></p><p style="margin:6px 0 2px"><b>Jueves 5 de noviembre</b></p><p style="margin:0 0 4px">18:30–20:00 · Atención al Cliente · <a href="https://meet.google.com/wzn-ufrz-qeu">Unirse (Meet)</a></p><p style="margin:0 0 4px">20:00–21:30 · Teoría de la Conducción · <a href="https://meet.google.com/utq-snkp-ght">Unirse (Meet)</a></p><p style="margin:6px 0 2px"><b>Viernes 6 de noviembre</b></p><p style="margin:0 0 4px">18:30–20:00 · Mecánica Básica</p><p style="margin:0 0 4px">20:00–21:30 · Computación · <a href="https://meet.google.com/myc-qzma-guc">Unirse (Meet)</a></p><h3 style="margin:18px 0 6px">Semana 4</h3><p style="margin:6px 0 2px"><b>Lunes 9 de noviembre</b></p><p style="margin:0 0 4px">18:30–20:00 · Leyes y Reglamento · <a href="https://meet.google.com/qik-mgri-jvf">Unirse (Meet)</a></p><p style="margin:0 0 4px">20:00–21:30 · Mecánica Básica</p><p style="margin:6px 0 2px"><b>Martes 10 de noviembre</b></p><p style="margin:0 0 4px">18:30–20:00 · Atención al Cliente · <a href="https://meet.google.com/wzn-ufrz-qeu">Unirse (Meet)</a></p><p style="margin:0 0 4px">20:00–21:30 · Teoría de la Conducción · <a href="https://meet.google.com/utq-snkp-ght">Unirse (Meet)</a></p><p style="margin:6px 0 2px"><b>Miércoles 11 de noviembre</b></p><p style="margin:0 0 4px">18:30–20:00 · Leyes y Reglamento · <a href="https://meet.google.com/qik-mgri-jvf">Unirse (Meet)</a></p><p style="margin:0 0 4px">20:00–21:30 · Computación · <a href="https://meet.google.com/myc-qzma-guc">Unirse (Meet)</a></p><p style="margin:6px 0 2px"><b>Jueves 12 de noviembre</b></p><p style="margin:0 0 4px">18:30–20:00 · Atención al Cliente · <a href="https://meet.google.com/wzn-ufrz-qeu">Unirse (Meet)</a></p><p style="margin:0 0 4px">20:00–21:30 · Teoría de la Conducción · <a href="https://meet.google.com/utq-snkp-ght">Unirse (Meet)</a></p><p style="margin:6px 0 2px"><b>Viernes 13 de noviembre</b></p><p style="margin:0 0 4px">18:30–20:00 · Mecánica Básica</p><p style="margin:0 0 4px">20:00–21:30 · Computación · <a href="https://meet.google.com/myc-qzma-guc">Unirse (Meet)</a></p><h3 style="margin:18px 0 6px">Semana 5</h3><p style="margin:6px 0 2px"><b>Lunes 16 de noviembre</b></p><p style="margin:0 0 4px">18:30–20:00 · Leyes y Reglamento · <a href="https://meet.google.com/qik-mgri-jvf">Unirse (Meet)</a></p><p style="margin:0 0 4px">20:00–21:30 · Mecánica Básica</p><p style="margin:6px 0 2px"><b>Martes 17 de noviembre</b></p><p style="margin:0 0 4px">18:30–20:00 · Atención al Cliente · <a href="https://meet.google.com/wzn-ufrz-qeu">Unirse (Meet)</a></p><p style="margin:0 0 4px">20:00–21:30 · Teoría de la Conducción · <a href="https://meet.google.com/utq-snkp-ght">Unirse (Meet)</a></p><p style="margin:6px 0 2px"><b>Miércoles 18 de noviembre</b></p><p style="margin:0 0 4px">18:30–20:00 · Leyes y Reglamento · <a href="https://meet.google.com/qik-mgri-jvf">Unirse (Meet)</a></p><p style="margin:0 0 4px">20:00–21:30 · Computación · <a href="https://meet.google.com/myc-qzma-guc">Unirse (Meet)</a></p><p style="margin:6px 0 2px"><b>Jueves 19 de noviembre</b></p><p style="margin:0 0 4px">18:30–20:00 · Atención al Cliente · <a href="https://meet.google.com/wzn-ufrz-qeu">Unirse (Meet)</a></p><p style="margin:0 0 4px">20:00–21:30 · Teoría de la Conducción · <a href="https://meet.google.com/utq-snkp-ght">Unirse (Meet)</a></p><p style="margin:6px 0 2px"><b>Viernes 20 de noviembre</b></p><p style="margin:0 0 4px">18:30–20:00 · Mecánica Básica</p><p style="margin:0 0 4px">20:00–21:30 · Computación · <a href="https://meet.google.com/myc-qzma-guc">Unirse (Meet)</a></p><h3 style="margin:18px 0 6px">Semana 6</h3><p style="margin:6px 0 2px"><b>Lunes 23 de noviembre</b></p><p style="margin:0 0 4px">18:30–20:00 · Leyes y Reglamento · <a href="https://meet.google.com/qik-mgri-jvf">Unirse (Meet)</a></p><p style="margin:0 0 4px">20:00–21:30 · Mecánica Básica</p><p style="margin:6px 0 2px"><b>Martes 24 de noviembre</b></p><p style="margin:0 0 4px">18:30–20:00 · Atención al Cliente · <a href="https://meet.google.com/wzn-ufrz-qeu">Unirse (Meet)</a></p><p style="margin:0 0 4px">20:00–21:30 · Teoría de la Conducción · <a href="https://meet.google.com/utq-snkp-ght">Unirse (Meet)</a></p><p style="margin:6px 0 2px"><b>Miércoles 25 de noviembre</b></p><p style="margin:0 0 4px">18:30–20:00 · Leyes y Reglamento · <a href="https://meet.google.com/qik-mgri-jvf">Unirse (Meet)</a></p><p style="margin:0 0 4px">20:00–21:30 · Primeros Auxilios</p><p style="margin:6px 0 2px"><b>Jueves 26 de noviembre</b></p><p style="margin:0 0 4px">18:30–20:00 · Atención al Cliente · <a href="https://meet.google.com/wzn-ufrz-qeu">Unirse (Meet)</a></p><p style="margin:0 0 4px">20:00–21:30 · Teoría de la Conducción · <a href="https://meet.google.com/utq-snkp-ght">Unirse (Meet)</a></p><p style="margin:6px 0 2px"><b>Viernes 27 de noviembre</b></p><p style="margin:0 0 4px">18:30–20:00 · Mecánica Básica</p><p style="margin:0 0 4px">20:00–21:30 · Primeros Auxilios</p><h3 style="margin:18px 0 6px">Semana 7</h3><p style="margin:6px 0 2px"><b>Lunes 30 de noviembre</b></p><p style="margin:0 0 4px">18:30–20:00 · Leyes y Reglamento · <a href="https://meet.google.com/qik-mgri-jvf">Unirse (Meet)</a></p><p style="margin:0 0 4px">20:00–21:30 · Mecánica Básica</p><p style="margin:6px 0 2px"><b>Martes 1 de diciembre</b></p><p style="margin:0 0 4px">18:30–20:00 · Atención al Cliente · <a href="https://meet.google.com/wzn-ufrz-qeu">Unirse (Meet)</a></p><p style="margin:0 0 4px">20:00–21:30 · Teoría de la Conducción · <a href="https://meet.google.com/utq-snkp-ght">Unirse (Meet)</a></p><p style="margin:6px 0 2px"><b>Miércoles 2 de diciembre</b></p><p style="margin:0 0 4px">18:30–20:00 · Leyes y Reglamento · <a href="https://meet.google.com/qik-mgri-jvf">Unirse (Meet)</a></p><p style="margin:0 0 4px">20:00–21:30 · Primeros Auxilios</p><p style="margin:6px 0 2px"><b>Jueves 3 de diciembre</b></p><p style="margin:0 0 4px">18:30–20:00 · Atención al Cliente · <a href="https://meet.google.com/wzn-ufrz-qeu">Unirse (Meet)</a></p><p style="margin:0 0 4px">20:00–21:30 · Teoría de la Conducción · <a href="https://meet.google.com/utq-snkp-ght">Unirse (Meet)</a></p><p style="margin:6px 0 2px"><b>Viernes 4 de diciembre</b></p><p style="margin:0 0 4px">18:30–20:00 · Mecánica Básica</p><p style="margin:0 0 4px">20:00–21:30 · Primeros Auxilios</p><h3 style="margin:18px 0 6px">Semana 8</h3><p style="margin:6px 0 2px"><b>Lunes 7 de diciembre</b></p><p style="margin:0 0 4px">18:30–20:00 · Leyes y Reglamento · <a href="https://meet.google.com/qik-mgri-jvf">Unirse (Meet)</a></p><p style="margin:0 0 4px">20:00–21:30 · Mecánica Básica</p><p style="margin:6px 0 2px"><b>Martes 8 de diciembre</b></p><p style="margin:0 0 4px">18:30–20:00 · Atención al Cliente · <a href="https://meet.google.com/wzn-ufrz-qeu">Unirse (Meet)</a></p><p style="margin:0 0 4px">20:00–21:30 · Teoría de la Conducción · <a href="https://meet.google.com/utq-snkp-ght">Unirse (Meet)</a></p><p style="margin:6px 0 2px"><b>Miércoles 9 de diciembre</b></p><p style="margin:0 0 4px">18:30–20:00 · Leyes y Reglamento · <a href="https://meet.google.com/qik-mgri-jvf">Unirse (Meet)</a></p><p style="margin:0 0 4px">20:00–21:30 · Primeros Auxilios</p><p style="margin:6px 0 2px"><b>Jueves 10 de diciembre</b></p><p style="margin:0 0 4px">18:30–20:00 · Atención al Cliente · <a href="https://meet.google.com/wzn-ufrz-qeu">Unirse (Meet)</a></p><p style="margin:0 0 4px">20:00–21:30 · Teoría de la Conducción · <a href="https://meet.google.com/utq-snkp-ght">Unirse (Meet)</a></p><p style="margin:6px 0 2px"><b>Viernes 11 de diciembre</b></p><p style="margin:0 0 4px">18:30–20:00 · Mecánica Básica</p><p style="margin:0 0 4px">20:00–21:30 · Primeros Auxilios</p><h3 style="margin:18px 0 6px">Semana 9</h3><p style="margin:6px 0 2px"><b>Lunes 14 de diciembre</b></p><p style="margin:0 0 4px">18:30–20:00 · Leyes y Reglamento · <a href="https://meet.google.com/qik-mgri-jvf">Unirse (Meet)</a></p><p style="margin:0 0 4px">20:00–21:30 · Mecánica Básica</p><p style="margin:6px 0 2px"><b>Martes 15 de diciembre</b></p><p style="margin:0 0 4px">18:30–20:00 · Atención al Cliente · <a href="https://meet.google.com/wzn-ufrz-qeu">Unirse (Meet)</a></p><p style="margin:0 0 4px">20:00–21:30 · Teoría de la Conducción · <a href="https://meet.google.com/utq-snkp-ght">Unirse (Meet)</a></p><p style="margin:6px 0 2px"><b>Miércoles 16 de diciembre</b></p><p style="margin:0 0 4px">18:30–20:00 · Leyes y Reglamento · <a href="https://meet.google.com/qik-mgri-jvf">Unirse (Meet)</a></p><p style="margin:0 0 4px">20:00–21:30 · Primeros Auxilios</p><p style="margin:6px 0 2px"><b>Jueves 17 de diciembre</b></p><p style="margin:0 0 4px">18:30–20:00 · Atención al Cliente · <a href="https://meet.google.com/wzn-ufrz-qeu">Unirse (Meet)</a></p><p style="margin:0 0 4px">20:00–21:30 · Teoría de la Conducción · <a href="https://meet.google.com/utq-snkp-ght">Unirse (Meet)</a></p><p style="margin:6px 0 2px"><b>Viernes 18 de diciembre</b></p><p style="margin:0 0 4px">18:30–20:00 · Mecánica Básica</p><p style="margin:0 0 4px">20:00–21:30 · Primeros Auxilios</p><h3 style="margin:18px 0 6px">Semana 10</h3><p style="margin:6px 0 2px"><b>Lunes 21 de diciembre</b></p><p style="margin:0 0 4px">18:30–20:00 · Leyes y Reglamento · <a href="https://meet.google.com/qik-mgri-jvf">Unirse (Meet)</a></p><p style="margin:0 0 4px">20:00–21:30 · Mecánica Básica</p><p style="margin:6px 0 2px"><b>Martes 22 de diciembre</b></p><p style="margin:0 0 4px">18:30–20:00 · Atención al Cliente · <a href="https://meet.google.com/wzn-ufrz-qeu">Unirse (Meet)</a></p><p style="margin:0 0 4px">20:00–21:30 · Teoría de la Conducción · <a href="https://meet.google.com/utq-snkp-ght">Unirse (Meet)</a></p><p style="margin:6px 0 2px"><b>Miércoles 23 de diciembre</b></p><p style="margin:0 0 4px">18:30–20:00 · Leyes y Reglamento · <a href="https://meet.google.com/qik-mgri-jvf">Unirse (Meet)</a></p><p style="margin:0 0 4px">20:00–21:30 · Primeros Auxilios</p><p style="margin:6px 0 2px"><b>Jueves 24 de diciembre</b></p><p style="margin:0 0 6px;color:#b42318">Feriado</p><p style="margin:6px 0 2px"><b>Viernes 25 de diciembre</b></p><p style="margin:0 0 6px;color:#b42318">Feriado</p><h3 style="margin:18px 0 6px">Semana 11</h3><p style="margin:6px 0 2px"><b>Lunes 28 de diciembre</b></p><p style="margin:0 0 4px">18:30–20:00 · Leyes y Reglamento · <a href="https://meet.google.com/qik-mgri-jvf">Unirse (Meet)</a></p><p style="margin:0 0 4px">20:00–21:30 · Mecánica Básica</p><p style="margin:6px 0 2px"><b>Martes 29 de diciembre</b></p><p style="margin:0 0 4px">18:30–20:00 · Atención al Cliente · <a href="https://meet.google.com/wzn-ufrz-qeu">Unirse (Meet)</a></p><p style="margin:0 0 4px">20:00–21:30 · Teoría de la Conducción · <a href="https://meet.google.com/utq-snkp-ght">Unirse (Meet)</a></p><p style="margin:6px 0 2px"><b>Miércoles 30 de diciembre</b></p><p style="margin:0 0 4px">18:30–20:00 · Leyes y Reglamento · <a href="https://meet.google.com/qik-mgri-jvf">Unirse (Meet)</a></p><p style="margin:0 0 4px">20:00–21:30 · Primeros Auxilios</p><p style="margin:6px 0 2px"><b>Jueves 31 de diciembre</b></p><p style="margin:0 0 6px;color:#b42318">Feriado</p><p style="margin:6px 0 2px"><b>Viernes 1 de enero</b></p><p style="margin:0 0 6px;color:#b42318">Feriado</p><h3 style="margin:18px 0 6px">Semana 12</h3><p style="margin:6px 0 2px"><b>Lunes 4 de enero</b></p><p style="margin:0 0 4px">18:30–20:00 · Leyes y Reglamento · <a href="https://meet.google.com/qik-mgri-jvf">Unirse (Meet)</a></p><p style="margin:0 0 4px">20:00–21:30 · Mecánica Básica</p><p style="margin:6px 0 2px"><b>Martes 5 de enero</b></p><p style="margin:0 0 4px">18:30–20:00 · Atención al Cliente · <a href="https://meet.google.com/wzn-ufrz-qeu">Unirse (Meet)</a></p><p style="margin:0 0 4px">20:00–21:30 · Teoría de la Conducción · <a href="https://meet.google.com/utq-snkp-ght">Unirse (Meet)</a></p><p style="margin:6px 0 2px"><b>Miércoles 6 de enero</b></p><p style="margin:0 0 4px">18:30–20:00 · Leyes y Reglamento · <a href="https://meet.google.com/qik-mgri-jvf">Unirse (Meet)</a></p><p style="margin:0 0 4px">20:00–21:30 · Educación Vial</p><p style="margin:6px 0 2px"><b>Jueves 7 de enero</b></p><p style="margin:0 0 4px">18:30–20:00 · Psicología Aplicada C</p><p style="margin:0 0 4px">20:00–21:30 · Geografía del Ecuador</p><p style="margin:6px 0 2px"><b>Viernes 8 de enero</b></p><p style="margin:0 0 4px">18:30–20:00 · Relaciones Humanas</p><p style="margin:0 0 4px">20:00–21:30 · Educación Vial</p><h3 style="margin:18px 0 6px">Semana 13</h3><p style="margin:6px 0 2px"><b>Lunes 11 de enero</b></p><p style="margin:0 0 4px">18:30–20:00 · Leyes y Reglamento · <a href="https://meet.google.com/qik-mgri-jvf">Unirse (Meet)</a></p><p style="margin:0 0 4px">20:00–21:30 · Relaciones Humanas</p><p style="margin:6px 0 2px"><b>Martes 12 de enero</b></p><p style="margin:0 0 4px">18:30–20:00 · Psicología Aplicada C</p><p style="margin:0 0 4px">20:00–21:30 · Geografía del Ecuador</p><p style="margin:6px 0 2px"><b>Miércoles 13 de enero</b></p><p style="margin:0 0 4px">18:30–20:00 · Leyes y Reglamento · <a href="https://meet.google.com/qik-mgri-jvf">Unirse (Meet)</a></p><p style="margin:0 0 4px">20:00–21:30 · Educación Vial</p><p style="margin:6px 0 2px"><b>Jueves 14 de enero</b></p><p style="margin:0 0 4px">18:30–20:00 · Psicología Aplicada C</p><p style="margin:0 0 4px">20:00–21:30 · Geografía del Ecuador</p><p style="margin:6px 0 2px"><b>Viernes 15 de enero</b></p><p style="margin:0 0 4px">18:30–20:00 · Relaciones Humanas</p><p style="margin:0 0 4px">20:00–21:30 · Educación Vial</p><h3 style="margin:18px 0 6px">Semana 14</h3><p style="margin:6px 0 2px"><b>Lunes 18 de enero</b></p><p style="margin:0 0 4px">18:30–20:00 · Leyes y Reglamento · <a href="https://meet.google.com/qik-mgri-jvf">Unirse (Meet)</a></p><p style="margin:0 0 4px">20:00–21:30 · Relaciones Humanas</p><p style="margin:6px 0 2px"><b>Martes 19 de enero</b></p><p style="margin:0 0 4px">18:30–20:00 · Psicología Aplicada C</p><p style="margin:0 0 4px">20:00–21:30 · Geografía del Ecuador</p><p style="margin:6px 0 2px"><b>Miércoles 20 de enero</b></p><p style="margin:0 0 4px">18:30–20:00 · Leyes y Reglamento · <a href="https://meet.google.com/qik-mgri-jvf">Unirse (Meet)</a></p><p style="margin:0 0 4px">20:00–21:30 · Educación Vial</p><p style="margin:6px 0 2px"><b>Jueves 21 de enero</b></p><p style="margin:0 0 4px">18:30–20:00 · Psicología Aplicada C</p><p style="margin:0 0 4px">20:00–21:30 · Geografía del Ecuador</p><p style="margin:6px 0 2px"><b>Viernes 22 de enero</b></p><p style="margin:0 0 4px">18:30–20:00 · Relaciones Humanas</p><p style="margin:0 0 4px">20:00–21:30 · Educación Vial</p><h3 style="margin:18px 0 6px">Semana 15</h3><p style="margin:6px 0 2px"><b>Lunes 25 de enero</b></p><p style="margin:0 0 4px">18:30–20:00 · Leyes y Reglamento · <a href="https://meet.google.com/qik-mgri-jvf">Unirse (Meet)</a></p><p style="margin:0 0 4px">20:00–21:30 · Relaciones Humanas</p><p style="margin:6px 0 2px"><b>Martes 26 de enero</b></p><p style="margin:0 0 4px">18:30–20:00 · Psicología Aplicada C</p><p style="margin:0 0 4px">20:00–21:30 · Geografía del Ecuador</p><p style="margin:6px 0 2px"><b>Miércoles 27 de enero</b></p><p style="margin:0 0 4px">18:30–20:00 · Leyes y Reglamento · <a href="https://meet.google.com/qik-mgri-jvf">Unirse (Meet)</a></p><p style="margin:0 0 4px">20:00–21:30 · Educación Vial</p><p style="margin:6px 0 2px"><b>Jueves 28 de enero</b></p><p style="margin:0 0 4px">18:30–20:00 · Psicología Aplicada C</p><p style="margin:0 0 4px">20:00–21:30 · Geografía del Ecuador</p><p style="margin:6px 0 2px"><b>Viernes 29 de enero</b></p><p style="margin:0 0 4px">18:30–20:00 · Relaciones Humanas</p><p style="margin:0 0 4px">20:00–21:30 · Educación Vial</p><h3 style="margin:18px 0 6px">Semana 16</h3><p style="margin:6px 0 2px"><b>Lunes 1 de febrero</b></p><p style="margin:0 0 4px">18:30–20:00 · Leyes y Reglamento · <a href="https://meet.google.com/qik-mgri-jvf">Unirse (Meet)</a></p><p style="margin:0 0 4px">20:00–21:30 · Relaciones Humanas</p><p style="margin:6px 0 2px"><b>Martes 2 de febrero</b></p><p style="margin:0 0 4px">18:30–20:00 · Psicología Aplicada C</p><p style="margin:0 0 4px">20:00–21:30 · Geografía del Ecuador</p><p style="margin:6px 0 2px"><b>Miércoles 3 de febrero</b></p><p style="margin:0 0 4px">18:30–20:00 · Inglés</p><p style="margin:0 0 4px">20:00–21:30 · Educación Vial</p><p style="margin:6px 0 2px"><b>Jueves 4 de febrero</b></p><p style="margin:0 0 4px">18:30–20:00 · Psicología Aplicada C</p><p style="margin:0 0 4px">20:00–21:30 · Geografía del Ecuador</p><p style="margin:6px 0 2px"><b>Viernes 5 de febrero</b></p><p style="margin:0 0 4px">18:30–20:00 · Relaciones Humanas</p><p style="margin:0 0 4px">20:00–21:30 · Educación Vial</p><h3 style="margin:18px 0 6px">Semana 17</h3><p style="margin:6px 0 2px"><b>Lunes 8 de febrero</b></p><p style="margin:0 0 6px;color:#b42318">Feriado</p><p style="margin:6px 0 2px"><b>Martes 9 de febrero</b></p><p style="margin:0 0 6px;color:#b42318">Feriado</p><p style="margin:6px 0 2px"><b>Miércoles 10 de febrero</b></p><p style="margin:0 0 4px">18:30–20:00 · Inglés</p><p style="margin:0 0 4px">20:00–21:30 · Educación Vial</p><p style="margin:6px 0 2px"><b>Jueves 11 de febrero</b></p><p style="margin:0 0 4px">18:30–20:00 · Psicología Aplicada C</p><p style="margin:0 0 4px">20:00–21:30 · Geografía del Ecuador</p><p style="margin:6px 0 2px"><b>Viernes 12 de febrero</b></p><p style="margin:0 0 4px">18:30–20:00 · Relaciones Humanas</p><p style="margin:0 0 4px">20:00–21:30 · Educación Vial</p><h3 style="margin:18px 0 6px">Semana 18</h3><p style="margin:6px 0 2px"><b>Lunes 15 de febrero</b></p><p style="margin:0 0 4px">18:30–20:00 · Inglés</p><p style="margin:0 0 4px">20:00–21:30 · Relaciones Humanas</p><p style="margin:6px 0 2px"><b>Martes 16 de febrero</b></p><p style="margin:0 0 4px">18:30–20:00 · Psicología Aplicada C</p><p style="margin:0 0 4px">20:00–21:30 · Geografía del Ecuador</p><p style="margin:6px 0 2px"><b>Miércoles 17 de febrero</b></p><p style="margin:0 0 4px">18:30–20:00 · Inglés</p><p style="margin:0 0 4px">20:00–21:30 · Educación Vial</p><p style="margin:6px 0 2px"><b>Jueves 18 de febrero</b></p><p style="margin:0 0 4px">18:30–20:00 · Psicología Aplicada C</p><p style="margin:0 0 4px">20:00–21:30 · Geografía del Ecuador</p><p style="margin:6px 0 2px"><b>Viernes 19 de febrero</b></p><p style="margin:0 0 4px">18:30–20:00 · Relaciones Humanas</p><p style="margin:0 0 4px">20:00–21:30 · Educación Vial</p><h3 style="margin:18px 0 6px">Semana 19</h3><p style="margin:6px 0 2px"><b>Lunes 22 de febrero</b></p><p style="margin:0 0 4px">18:30–20:00 · Inglés</p><p style="margin:0 0 4px">20:00–21:30 · Relaciones Humanas</p><p style="margin:6px 0 2px"><b>Martes 23 de febrero</b></p><p style="margin:0 0 4px">18:30–20:00 · Psicología Aplicada C</p><p style="margin:0 0 4px">20:00–21:30 · Geografía del Ecuador</p><p style="margin:6px 0 2px"><b>Miércoles 24 de febrero</b></p><p style="margin:0 0 4px">18:30–20:00 · Inglés</p><p style="margin:0 0 4px">20:00–21:30 · Educación Vial</p><p style="margin:6px 0 2px"><b>Jueves 25 de febrero</b></p><p style="margin:0 0 4px">18:30–20:00 · Psicología Aplicada C</p><p style="margin:0 0 4px">20:00–21:30 · Geografía del Ecuador</p><p style="margin:6px 0 2px"><b>Viernes 26 de febrero</b></p><p style="margin:0 0 4px">18:30–20:00 · Relaciones Humanas</p><p style="margin:0 0 4px">20:00–21:30 · Educación Vial</p><h3 style="margin:18px 0 6px">Semana 20</h3><p style="margin:6px 0 2px"><b>Lunes 1 de marzo</b></p><p style="margin:0 0 4px">18:30–20:00 · Inglés</p><p style="margin:0 0 4px">20:00–21:30 · Relaciones Humanas</p><p style="margin:6px 0 2px"><b>Martes 2 de marzo</b></p><p style="margin:0 0 4px">18:30–20:00 · Psicología Aplicada C</p><p style="margin:0 0 4px">20:00–21:30 · Geografía del Ecuador</p><p style="margin:6px 0 2px"><b>Miércoles 3 de marzo</b></p><p style="margin:0 0 4px">18:30–20:00 · Inglés</p><p style="margin:0 0 4px">20:00–21:30 · Educación Vial</p><p style="margin:6px 0 2px"><b>Jueves 4 de marzo</b></p><p style="margin:0 0 4px">18:30–20:00 · Psicología Aplicada C</p><p style="margin:0 0 4px">20:00–21:30 · Geografía del Ecuador</p><p style="margin:6px 0 2px"><b>Viernes 5 de marzo</b></p><p style="margin:0 0 4px">18:30–20:00 · Relaciones Humanas</p><p style="margin:0 0 4px">20:00–21:30 · Educación Vial</p><h3 style="margin:18px 0 6px">Semana 21</h3><p style="margin:6px 0 2px"><b>Lunes 8 de marzo</b></p><p style="margin:0 0 4px">18:30–20:00 · Inglés</p><p style="margin:0 0 4px">20:00–21:30 · Relaciones Humanas</p><p style="margin:6px 0 2px"><b>Martes 9 de marzo</b></p><p style="margin:0 0 4px">18:30–20:00 · Psicología Aplicada C</p><p style="margin:0 0 4px">20:00–21:30 · Geografía del Ecuador</p><p style="margin:6px 0 2px"><b>Miércoles 10 de marzo</b></p><p style="margin:0 0 4px">18:30–20:00 · Inglés</p><p style="margin:0 0 4px">20:00–21:30 · Educación Vial</p><p style="margin:6px 0 2px"><b>Jueves 11 de marzo</b></p><p style="margin:0 0 4px">18:30–20:00 · Psicología Aplicada C</p><p style="margin:0 0 4px">20:00–21:30 · Geografía del Ecuador</p><p style="margin:6px 0 2px"><b>Viernes 12 de marzo</b></p><p style="margin:0 0 4px">18:30–20:00 · Relaciones Humanas</p><p style="margin:0 0 4px">20:00–21:30 · Educación Vial</p><h3 style="margin:18px 0 6px">Semana 22</h3><p style="margin:6px 0 2px"><b>Lunes 15 de marzo</b></p><p style="margin:0 0 4px">18:30–20:00 · Inglés</p><p style="margin:0 0 4px">20:00–21:30 · Relaciones Humanas</p><p style="margin:6px 0 2px"><b>Martes 16 de marzo</b></p><p style="margin:0 0 4px">18:30–20:00 · Psicología Aplicada C</p><p style="margin:0 0 4px">20:00–21:30 · Geografía del Ecuador</p><p style="margin:6px 0 2px"><b>Miércoles 17 de marzo</b></p><p style="margin:0 0 4px">18:30–20:00 · Inglés</p><p style="margin:0 0 4px">20:00–21:30 · Educación Ambiental</p><p style="margin:6px 0 2px"><b>Jueves 18 de marzo</b></p><p style="margin:0 0 4px">18:30–20:00 · Psicología Aplicada C</p><p style="margin:0 0 4px">20:00–21:30 · Geografía del Ecuador</p><p style="margin:6px 0 2px"><b>Viernes 19 de marzo</b></p><p style="margin:0 0 4px">18:30–20:00 · Relaciones Humanas</p><p style="margin:0 0 4px">20:00–21:30 · Educación Ambiental</p><h3 style="margin:18px 0 6px">Semana 23</h3><p style="margin:6px 0 2px"><b>Lunes 22 de marzo</b></p><p style="margin:0 0 4px">18:30–20:00 · Inglés</p><p style="margin:0 0 4px">20:00–21:30 · Educación Ambiental</p><p style="margin:6px 0 2px"><b>Martes 23 de marzo</b></p><p style="margin:0 0 6px;color:#667085">Sin clases</p><p style="margin:6px 0 2px"><b>Miércoles 24 de marzo</b></p><p style="margin:0 0 4px">18:30–20:00 · Inglés</p><p style="margin:0 0 4px">20:00–21:30 · Educación Ambiental</p><p style="margin:6px 0 2px"><b>Jueves 25 de marzo</b></p><p style="margin:0 0 6px;color:#667085">Sin clases</p><p style="margin:6px 0 2px"><b>Viernes 26 de marzo</b></p><p style="margin:0 0 6px;color:#b42318">Feriado</p><h3 style="margin:18px 0 6px">Semana 24</h3><p style="margin:6px 0 2px"><b>Lunes 29 de marzo</b></p><p style="margin:0 0 4px">18:30–20:00 · Inglés</p><p style="margin:0 0 4px">20:00–21:30 · Educación Ambiental</p><p style="margin:6px 0 2px"><b>Martes 30 de marzo</b></p><p style="margin:0 0 6px;color:#667085">Sin clases</p><p style="margin:6px 0 2px"><b>Miércoles 31 de marzo</b></p><p style="margin:0 0 4px">18:30–20:00 · Inglés</p><p style="margin:0 0 4px">20:00–21:30 · Educación Ambiental</p><p style="margin:6px 0 2px"><b>Jueves 1 de abril</b></p><p style="margin:0 0 6px;color:#667085">Sin clases</p><p style="margin:6px 0 2px"><b>Viernes 2 de abril</b></p><p style="margin:0 0 6px;color:#667085">Sin clases</p><h3 style="margin:18px 0 6px">Semana 25</h3><p style="margin:6px 0 2px"><b>Lunes 5 de abril</b></p><p style="margin:0 0 4px">18:30–20:00 · Inglés</p><p style="margin:0 0 4px">20:00–21:30 · Educación Ambiental</p><p style="margin:6px 0 2px"><b>Martes 6 de abril</b></p><p style="margin:0 0 6px;color:#667085">Sin clases</p><p style="margin:6px 0 2px"><b>Miércoles 7 de abril</b></p><p style="margin:0 0 4px">18:30–20:00 · Inglés</p><p style="margin:0 0 4px">20:00–21:30 · Educación Ambiental</p><p style="margin:6px 0 2px"><b>Jueves 8 de abril</b></p><p style="margin:0 0 6px;color:#667085">Sin clases</p><p style="margin:6px 0 2px"><b>Viernes 9 de abril</b></p><p style="margin:0 0 6px;color:#667085">Sin clases</p><h3 style="margin:18px 0 6px">Semana 26</h3><p style="margin:6px 0 2px"><b>Lunes 12 de abril</b></p><p style="margin:0 0 4px">18:30–20:00 · Inglés</p><p style="margin:0 0 4px">20:00–21:30 · Educación Ambiental</p><p style="margin:6px 0 2px"><b>Martes 13 de abril</b></p><p style="margin:0 0 6px;color:#667085">Sin clases</p><p style="margin:6px 0 2px"><b>Miércoles 14 de abril</b></p><p style="margin:0 0 4px">18:30–20:00 · Inglés</p><p style="margin:0 0 4px">20:00–21:30 · Educación Ambiental</p><p style="margin:6px 0 2px"><b>Jueves 15 de abril</b></p><p style="margin:0 0 6px;color:#667085">Sin clases</p><p style="margin:6px 0 2px"><b>Viernes 16 de abril</b></p><p style="margin:0 0 6px;color:#667085">Sin clases</p></div></noscript>
+<footer>Semana <span id="wnum"></span> de 26 · Si algo no coincide, confirma con la escuela.</footer>
+
+<script>
+/* ================= CONFIGURACIÓN: edita aquí ================= */
+const MATERIAS = {
+  LEY:{n:"Leyes y Reglamento",   color:"#06b6d4", prof:"", link:"https://meet.google.com/qik-mgri-jvf"},
+  ATC:{n:"Atención al Cliente",  color:"#ec4899", prof:"", link:"https://meet.google.com/wzn-ufrz-qeu"},
+  TEO:{n:"Teoría de la Conducción", color:"#eab308", prof:"", link:"https://meet.google.com/utq-snkp-ght"},
+  COM:{n:"Computación",          color:"#10b981", prof:"", link:"https://meet.google.com/myc-qzma-guc"},
+  MEC:{n:"Mecánica Básica",      color:"#a8a29e", prof:"", link:""},
+  PA: {n:"Primeros Auxilios",    color:"#ef4444", prof:"", link:""},
+  PSI:{n:"Psicología Aplicada C",color:"#f59e0b", prof:"", link:""},
+  GEO:{n:"Geografía del Ecuador",color:"#fb923c", prof:"", link:""},
+  REL:{n:"Relaciones Humanas",   color:"#b45309", prof:"", link:""},
+  EDV:{n:"Educación Vial",       color:"#a3e635", prof:"", link:""},
+  ING:{n:"Inglés",               color:"#818cf8", prof:"", link:""},
+  EAM:{n:"Educación Ambiental",  color:"#84cc16", prof:"", link:""}
+};
+/* ============================================================== */
+
+const F = "F";           // feriado
+const BLOQUES = [["18:30","20:00"],["20:00","21:30"]];
+const START = new Date(2026,9,19); // lunes 19-oct-2026 (semana 1)
+
+const A = [["LEY","MEC"],["ATC","TEO"],["LEY","COM"],["ATC","TEO"],["MEC","COM"]];
+const B = [["LEY","MEC"],["ATC","TEO"],["LEY","PA"],["ATC","TEO"],["MEC","PA"]];
+const C = [["LEY","REL"],["PSI","GEO"],["LEY","EDV"],["PSI","GEO"],["REL","EDV"]];
+const D = [["ING","REL"],["PSI","GEO"],["ING","EDV"],["PSI","GEO"],["REL","EDV"]];
+const rep=(x,n)=>Array(n).fill(x);
+const mod=(base,idx,val)=>{const c=base.slice();idx.forEach(i=>c[i]=val);return c;};
+
+const SEMANAS = [
+  ...rep(A,2),                                   // 1-2
+  mod(A,[0,1],F),                                // 3  (2 y 3 nov feriado)
+  ...rep(A,2),                                   // 4-5
+  ...rep(B,4),                                   // 6-9
+  mod(B,[3,4],F),                                // 10 (24-25 dic)
+  mod(B,[3,4],F),                                // 11 (31 dic - 1 ene)
+  [["LEY","MEC"],["ATC","TEO"],["LEY","EDV"],["PSI","GEO"],["REL","EDV"]], // 12
+  ...rep(C,3),                                   // 13-15
+  mod(C,[2],["ING","EDV"]),                      // 16
+  mod(mod(C,[2],["ING","EDV"]),[0,1],F),         // 17 (8-9 feb carnaval)
+  ...rep(D,4),                                   // 18-21
+  mod(D,[2,4],null).map((d,i)=> i===2?["ING","EAM"]: i===4?["REL","EAM"]: d), // 22
+  [["ING","EAM"],null,["ING","EAM"],null,F],     // 23 (26 mar feriado)
+  ...rep([["ING","EAM"],null,["ING","EAM"],null,null],3) // 24-26
+];
+
+const DIAS=["domingo","lunes","martes","miércoles","jueves","viernes","sábado"];
+const MESES=["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
+const addDays=(d,n)=>new Date(d.getFullYear(),d.getMonth(),d.getDate()+n);
+const key=d=>d.getFullYear()+"-"+d.getMonth()+"-"+d.getDate();
+
+function ahoraGye(){
+  const p=new Intl.DateTimeFormat("en-CA",{timeZone:"America/Guayaquil",year:"numeric",month:"2-digit",day:"2-digit",
+    hour:"2-digit",minute:"2-digit",hour12:false}).formatToParts(new Date());
+  const g=t=>+p.find(x=>x.type===t).value;
+  return {date:new Date(g("year"),g("month")-1,g("day")), min:(g("hour")%24)*60+g("minute")};
+}
+const hm=s=>{const [h,m]=s.split(":");return +h*60+ +m;};
+
+let hoy=ahoraGye().date;
+let sel=new Date(hoy);
+if(sel<START) sel=new Date(START);
+
+function semanaDe(d){ // índice de semana y lunes
+  const dias=Math.floor((d-START)/864e5);
+  const w=Math.floor(dias/7);
+  return {w, lunes:addDays(START,w*7)};
+}
+function clamp(d){
+  const fin=addDays(START,26*7-1);
+  return d<START?new Date(START):d>fin?new Date(fin):d;
+}
+function render(){
+  const {w,lunes}=semanaDe(sel);
+  document.getElementById("wnum").textContent=w+1;
+  const wk=document.getElementById("week"); wk.innerHTML="";
+  const sw=SEMANAS[w];
+  for(let i=0;i<7;i++){
+    const d=addDays(lunes,i);
+    const b=document.createElement("button");
+    const lab=["L","M","M","J","V","S","D"][i];
+    b.innerHTML=lab+"<b>"+d.getDate()+"</b>";
+    if(key(d)===key(sel)) b.classList.add("sel");
+    if(key(d)===key(hoy)) b.classList.add("today");
+    if(i>4 || !sw[i] ) b.classList.add("off");
+    b.onclick=()=>{sel=d;render();};
+    wk.appendChild(b);
+  }
+  const dow=(sel.getDay()+6)%7;
+  const cont=document.getElementById("day"); cont.innerHTML="";
+  const h=document.createElement("div"); h.className="dayhead";
+  h.innerHTML=DIAS[sel.getDay()]+" "+sel.getDate()+" de "+MESES[sel.getMonth()]+
+    "<small>Semana "+(w+1)+(key(sel)===key(hoy)?" · hoy":"")+"</small>";
+  cont.appendChild(h);
+  const info = dow>4 ? null : sw[dow];
+  if(info===F){
+    cont.insertAdjacentHTML("beforeend",'<div class="empty fer">Feriado · no hay clases</div>');
+  } else if(!info){
+    cont.insertAdjacentHTML("beforeend",'<div class="empty">No hay clases este día</div>');
+  } else {
+    const now=ahoraGye();
+    const esHoy=key(sel)===key(now.date);
+    info.forEach((cod,i)=>{
+      const m=MATERIAS[cod], [ini,fin]=BLOQUES[i];
+      let badge="";
+      if(esHoy){
+        if(now.min>=hm(ini)&&now.min<hm(fin)) badge='<span class="badge">EN CURSO</span>';
+        else if(now.min<hm(ini)) badge='<span class="badge next">'+(i===0||now.min>=hm(BLOQUES[0][1])?"SIGUIENTE":"MÁS TARDE")+'</span>';
+      }
+      const el=document.createElement("div"); el.className="card"; el.style.borderLeftColor=m.color;
+      el.innerHTML='<div class="time"><span>'+ini+' – '+fin+'</span>'+badge+'</div>'+
+        '<div class="subj"></div><div class="prof"></div>';
+      el.querySelector(".subj").textContent=m.n;
+      el.querySelector(".prof").textContent=m.prof?("Prof. "+m.prof):"";
+      if(m.link){
+        const a=document.createElement("a"); a.className="join"; a.href=m.link; a.target="_blank"; a.rel="noopener";
+        a.textContent="Unirse a la clase (Meet)"; el.appendChild(a);
+      } else {
+        el.insertAdjacentHTML("beforeend",'<div class="nolink">Link de Meet aún no disponible</div>');
+      }
+      cont.appendChild(el);
+    });
+  }
+}
+document.getElementById("prev").onclick=()=>{sel=clamp(addDays(sel,-7));render();};
+document.getElementById("next").onclick=()=>{sel=clamp(addDays(sel,7));render();};
+document.getElementById("hoy").onclick=()=>{hoy=ahoraGye().date;sel=clamp(new Date(hoy));render();};
+render();
+setInterval(()=>{ if(key(sel)===key(ahoraGye().date)) render(); },60000);
+</script>
+</body>
+</html>
